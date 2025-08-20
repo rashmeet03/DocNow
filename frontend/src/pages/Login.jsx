@@ -9,8 +9,8 @@ const Login = () => {
   const [state, setState] = useState('Sign Up')
 
   const [name, setName] = useState('')
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
+  const [email, setEmail] = useState(state === 'Login' ? 'test@example.com' : '')
+  const [password, setPassword] = useState(state === 'Login' ? 'testpassword123' : '')
 
   const navigate = useNavigate()
   const { backendUrl, token, setToken } = useContext(AppContext)
@@ -50,11 +50,25 @@ const Login = () => {
     }
   }, [token])
 
+  // Update credentials when state changes
+  useEffect(() => {
+    if (state === 'Login') {
+      setEmail('test@example.com')
+      setPassword('testpassword123')
+    } else {
+      setEmail('')
+      setPassword('')
+    }
+  }, [state])
+
   return (
     <form onSubmit={onSubmitHandler} className='min-h-[80vh] flex items-center'>
       <div className='flex flex-col gap-3 m-auto items-start p-8 min-w-[340px] sm:min-w-96 border rounded-xl text-[#5E5E5E] text-sm shadow-lg'>
         <p className='text-2xl font-semibold'>{state === 'Sign Up' ? 'Create Account' : 'Login'}</p>
         <p>Please {state === 'Sign Up' ? 'sign up' : 'log in'} to book appointment</p>
+        <p className='text-blue-600 text-sm bg-blue-50 p-2 rounded border'>
+          💡 Note: Test credentials pre-loaded - just click "Login here" below!
+        </p>
         {state === 'Sign Up'
           ? <div className='w-full '>
             <p>Full Name</p>
