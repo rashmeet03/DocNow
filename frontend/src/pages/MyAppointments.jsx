@@ -57,7 +57,7 @@ const MyAppointments = () => {
 
     const initPay = (order) => {
         const options = {
-            key: import.meta.env.VITE_RAZORPAY_KEY_ID,
+            key: 'rzp_test_R7FDnYu9g4cGda',
             amount: order.amount,
             currency: order.currency,
             name: 'Appointment Payment',
